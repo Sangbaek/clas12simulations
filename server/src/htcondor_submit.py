@@ -6,10 +6,14 @@
 #****************************************************************
 
 from __future__ import print_function
-from utils import utils, file_struct, create_database
-import sqlite3, os, argparse, subprocess, time
-import submission_script_maker
+import argparse, os, sqlite3, subprocess, sys, time
 from subprocess import PIPE, Popen
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))+'/../../utils')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))+'/../submission_files')
+#Could also do the following, but then python has to search the
+#sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+import submission_script_maker
+import file_struct, utils
 
 #This allows a user to specifiy which batch to use to generate files using a specific BatchID
 argparser = argparse.ArgumentParser()
@@ -33,6 +37,7 @@ def htcondor_submit(args,GcardID,file_extension):
   condorfile = 'submission_files/'+'condor_files/' + clas12condor_file
 
   subprocess.call(['chmod','+x',file_struct.runscript_file_obj.file_path + runscript_file])
+  subprocess.call(['chmod','+x',"condor_wrapper"])
   submission = Popen(['condor_submit',condorfile], stdout=PIPE).communicate()[0]
   #The below is for testing purposes
   #submission = """Submitting job(s)...
@@ -51,6 +56,7 @@ def htcondor_submit(args,GcardID,file_extension):
 
   strn = "UPDATE Submissions SET pool_node = '{0}' WHERE GcardID = '{1}';".format(node_number,GcardID)
   utils.sql3_exec(strn)
+
 
 
 if __name__ == "__main__":
