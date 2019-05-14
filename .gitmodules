@@ -1,3 +1,12 @@
 [submodule "documentation"]
 	path = documentation
 	url = https://github.com/mit-mc-clas12/documentation
+[submodule "server"]
+	path = server
+	url = https://github.com/mit-mc-clas12/server
+[submodule "client"]
+	path = client
+	url = https://github.com/mit-mc-clas12/client
+[submodule "utils"]
+	path = utils
+	url = https://github.com/mit-mc-clas12/utils
