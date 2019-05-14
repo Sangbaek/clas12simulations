@@ -11,7 +11,7 @@ script:
   - python2 utils/create_database.py -d 1
   - python2 client/src/SubMit.py -d 1
   - cd server
-  - python2 src/Submit_batch.py -s -d 1
+  - python2 src/Submit_batch.py -d 1
   - cd ../
   - cat database/CLAS12_OCRDB.db
 #to submit to HTCondor on Submit, for example, do the following:
